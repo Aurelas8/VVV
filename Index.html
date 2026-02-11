@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <title>💘</title>
+
+  <style>
+    /* CURSORI */
+    body{
+      cursor: url("cursor.png") 1 1, auto;
+    }
+    body.kitty{
+      cursor: url("kitty.png") 1 1, auto;
+    }
+    body.cuorino{
+      cursor: url("cuorino.png") 1 1, auto;
+    }
+
+    body{
+      margin:0;
+      height:100vh;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:"Segoe UI", system-ui, sans-serif;
+      background:#fde2ea;
+    }
+
+    /* CUORICINI */
+    .heart{
+      position:fixed;
+      font-size:18px;
+      color:#ff4d6d;
+      pointer-events:none;
+      animation: floatUp 4s ease-in forwards;
+      opacity:0.8;
+      z-index:1;
+    }
+
+    @keyframes floatUp{
+      0%{ transform:translateY(0) scale(0.8); opacity:0; }
+      10%{ opacity:1; }
+      100%{ transform:translateY(-140px) scale(1.3); opacity:0; }
+    }
+
+    .page{
+      text-align:center;
+      display:none;
+      position:relative;
+      z-index:2;
+    }
+    .page.active{ display:block; }
+
+    .gif{
+      width:300px;
+      max-width:85vw;
+      margin-bottom:30px;
+      animation:pulse 3s ease-in-out infinite;
+    }
+
+    .gif-small{
+      width:220px;
+      max-width:80vw;
+      margin-bottom:20px;
+      animation:pulse 3s ease-in-out infinite;
+    }
+
+    .side-gif{
+      width:160px;
+      max-width:30vw;
+      animation:pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse{
+      0%,100%{ transform:scale(1); }
+      50%{ transform:scale(1.05); }
+    }
+
+    h1{
+      font-size:60px;
+      color:#d26ac2;
+      margin:30px 0;
+      font-weight:700;
+      text-shadow:0 2px 8px rgba(0,0,0,.15);
+    }
+
+    .buttons{
+      display:flex;
+      gap:30px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    button{
+      font-size:22px;
+      padding:14px 40px;
+      border:none;
+      border-radius:40px;
+      background:#ff4d6d;
+      color:white;
+      transition:all .25s ease;
+      box-shadow:0 10px 20px rgba(0,0,0,.15);
+      cursor: inherit;
+    }
+
+    button.white{
+      background:white;
+      color:#d26ac2;
+    }
+
+    button:hover{
+      transform:scale(1.08);
+    }
+
+    .evviva-container{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:40px;
+      flex-wrap:wrap;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGINA 1 -->
+  <div class="page active" id="page1">
+    <img src="fuoco.gif" class="gif" alt="Fuoco">
+    <h1>Vuoi essere la mia Valentina? 🩷</h1>
+    <div class="buttons">
+      <button onclick="vaiPagina4()">Sì</button>
+      <button class="white" onclick="vaiPagina2()">No</button>
+    </div>
+  </div>
+
+  <!-- PAGINA 2 -->
+  <div class="page" id="page2">
+    <img src="nono.gif" class="gif-small" alt="No no">
+    <h1>Sei proprio sicura?</h1>
+    <div class="buttons">
+      <button class="white" onclick="vaiPagina3()">No, torna indietro</button>
+      <button id="scappa">Sì, sono sicura</button>
+    </div>
+  </div>
+
+  <!-- PAGINA 3 -->
+  <div class="page" id="page3">
+    <img src="goodgirl.gif" class="gif-small" alt="Good girl">
+    <div class="buttons">
+      <button onclick="tornaInizio()">Brava</button>
+    </div>
+  </div>
+
+  <!-- PAGINA 4 – EVVIVAAA -->
+  <div class="page" id="page4">
+    <img src="cupido.gif" class="gif-small" alt="Cupido">
+
+    <div class="evviva-container">
+      <img src="bacino.gif" class="side-gif" alt="Bacino">
+      <h1>EVVIVAAA 💖</h1>
+      <img src="loveyou.gif" class="side-gif" alt="Love you">
+    </div>
+  </div>
+
+  <script>
+    const page1 = document.getElementById("page1");
+    const page2 = document.getElementById("page2");
+    const page3 = document.getElementById("page3");
+    const page4 = document.getElementById("page4");
+
+    function vaiPagina2(){
+      page1.classList.remove("active");
+      page2.classList.add("active");
+      document.body.classList.add("kitty");
+      document.body.classList.remove("cuorino");
+    }
+
+    function vaiPagina3(){
+      page2.classList.remove("active");
+      page3.classList.add("active");
+    }
+
+    function vaiPagina4(){
+      page1.classList.remove("active");
+      page4.classList.add("active");
+      document.body.classList.remove("kitty");
+      document.body.classList.add("cuorino");
+    }
+
+    function tornaInizio(){
+      page3.classList.remove("active");
+      page1.classList.add("active");
+      document.body.classList.remove("kitty","cuorino");
+    }
+
+    /* CUORICINI */
+    function creaCuore(){
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = Math.random() > 0.5 ? "💖" : "💕";
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.top = (window.innerHeight - 20) + "px";
+      heart.style.fontSize = (16 + Math.random() * 18) + "px";
+      heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(creaCuore, 300);
+
+    /* PULSANTE CHE SCAPPA */
+    const btn = document.getElementById("scappa");
+    btn.addEventListener("mouseenter", () => {
+      const maxX = window.innerWidth - btn.offsetWidth - 20;
+      const maxY = window.innerHeight - btn.offsetHeight - 20;
+      btn.style.position = "fixed";
+      btn.style.left = Math.random() * maxX + "px";
+      btn.style.top = Math.random() * maxY + "px";
+    });
+  </script>
+
+</body>
+</html>
